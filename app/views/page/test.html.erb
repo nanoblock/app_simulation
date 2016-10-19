@@ -1,0 +1,257 @@
+<div class="image-show-view">
+
+  <div class="relation">
+    <% @images.each do |images| %>
+      <%= content_tag :div, "#{images.name}", id: "#{images.id}" %>
+    <% end %>
+  </div>
+
+  <div class="image" style="background-image: url(<%= @image.photo.url %>);">
+    <div id="canvas"></div>
+  </div>
+
+</div>
+
+<%= link_to content_tag :h1, 'save', class: "save" %>
+<!-- <= content_tag :h1, 'back', class: "back" %> -->
+<%= link_to content_tag(:h1, 'back'), user_project_path(current_user.id, @project_id) %>
+  
+
+
+<!-- <h1 class="back">back</h1> -->
+
+<script type="text/javascript">
+
+
+  // jQuery(function($) {
+
+  $(document).on("keydown", function(e) {
+    if (e.which == 8) {
+      $('.click-check').each(function(index, value) {
+        $(this).remove();
+      });
+      
+      if( $(".click-check").size() == 0 ) {
+        $(".relation").css('display', 'none').hide().fadeOut();
+      }
+    }
+  });
+
+  $(".relation").children().on("click", function(e) {
+    var relation_child = $(this).attr('id');
+
+    $(".click-check").each(function(index, value) {
+      $(this).attr('id', relation_child);
+    });
+  });
+
+  $(".save").on("click", function(e) {
+    gen_boxs = $('*[class^="gen_box_"]');
+
+    check_ocrs();
+    destroyClickableArea();
+    
+  });
+
+  var image = $('.image');
+
+  var main_content = $('#canvas')
+    gen_box = null,
+    gen_box_count  = 1;
+
+  var main_content_left = main_content.position().left;
+  var main_content_top = main_content.position().top;
+  var main_content_right = parseInt(main_content_left) + parseInt(image.width());
+  var main_content_bottom = parseInt(main_content_top) + parseInt(image.height());
+  
+  var event_check = false;
+
+  main_content.on({
+    dragstart: function(e) {
+      event_check = true;
+      x = e.pageX,
+      y = e.pageY;
+    },
+    resizestart: function(e) {
+      event_check = true;
+    }
+  });
+
+  // main_content.draggable({
+
+  // });
+  
+  
+  var selected_value;
+
+  main_content.selectable({
+    distance: 10,
+    
+    create: function(e) {
+
+      <% @image.clickables.each do |clickables| %>
+        drawGenBox(gen_box_count, "<%= clickables.target_image_id %>", "<%= clickables.width %>", "<%= clickables.height %>", "<%= clickables.left %>", "<%= clickables.top %>");
+      <% end %>
+
+    },
+
+    start: function(e) {
+      x_begin = e.pageX,
+      y_begin = e.pageY;
+    },
+
+    stop: function(e) {
+
+      x_end = e.pageX,
+      y_end = e.pageY;
+
+      if(x_end > main_content_left && x_end < main_content_right &&
+        y_end > main_content_top && y_end < main_content_bottom) {
+          drawGenBox(gen_box_count);
+      }
+
+    }});
+
+    function drawGenBox(box_count, box_target_image_id, box_width, box_height, box_left, box_top) {
+
+      if(isNullOrUndefined(box_width)) {
+        if( x_end - x_begin >= 0 ) {
+          width  = x_end - x_begin,
+          drag_left = false;
+        } else {
+          width  = x_begin - x_end,
+          drag_left = true;
+        }
+      } else {
+        width = parseInt(box_width);
+      }
+
+      if(isNullOrUndefined(box_height)) {
+        if( y_end - y_begin >= 0) {
+          height = y_end - y_begin,
+          drag_top = false;
+          
+        } else {
+          height = y_begin - y_end,
+          drag_top = true;
+        }
+      } else {
+        height = parseInt(box_height);
+      }
+
+      main_content.append('<div class="gen_box_' + box_count + ' '+ "hover"+'"></div>');
+
+      gen_box = $('.gen_box_' + box_count);
+
+      $(".hover").hover(function() {
+        $(this).css("cursor", "move");
+      });
+
+      gen_box.on("click", function(e) {
+        if(event_check) {
+          event_check = false;
+          return;
+        }
+        $(this).hasClass('click-check') ? $(this).removeClass('click-check') : $(this).addClass('click-check');
+
+        $(".click-check").size() == 1 ? $(".relation").css('display', 'inline').hide().fadeIn() : $(".relation").css('display', 'none').hide().fadeOut();
+      });
+
+      gen_box.attr('id', box_target_image_id);
+
+      gen_box.css({
+        'background' : 'gold',
+        'width'      : width,
+        'height'     : height,
+        'position'   : 'absolute',
+        'opacity'  : 0.4
+      })
+
+      .draggable({ containment: "parent" })
+      .resizable({ containment: "parent" });
+
+      if(isNullOrUndefined(box_left)) {
+        drag_left ? gen_box.offset({ left: x_end }) : gen_box.offset({ left: x_begin });
+      } else {
+        gen_box.offset({ left: parseInt(box_left)+parseInt(main_content_left) });
+      }
+      
+      if(isNullOrUndefined(box_top)) {
+        drag_top ? gen_box.offset({ top: y_end }) : gen_box.offset({ top: y_begin });
+      } else {
+        gen_box.offset({ top: parseInt(box_top)+parseInt(main_content_top) });
+      }
+
+      gen_box_count++;
+    }; //drawGenBox
+
+    function check_ocrs() {
+      gen_boxs.each(function(index, value) {
+        if( isNullOrUndefined($(this).attr('id')) ) {
+          alert("이미지를 연결해 주세요");
+          e.preventDefault();
+        }
+      });
+    } //check_ocrs
+
+    // destroy_all_user_project_image_ocrs_path(current_user.id, @project_id, @image_id )
+    // destroy_all_user_project_image_clickables_path(current_user.id, @project_id, @image_id) %>
+    function destroyClickableArea() {
+      $.ajax({
+        type: "POST",
+        url: "<%= destroy_all_user_project_image_clickables_path(current_user.id, @project_id, @image_id) %>",
+        success: function(data) {
+          saveClickableArea();
+        },
+        error: function(data) {
+
+        }
+      });
+    } //destroyClickableArea
+
+// user_project_image_ocrs_path(current_user.id, @project_id, @image_id)
+// user_project_image_clickables_path(current_user.id, @project_id, @image_id)
+    function saveClickableArea() {
+      gen_boxs.each(function(index, value) {
+        
+        $.ajax({
+          type: "POST",
+          url: "<%= user_project_image_clickables_path(current_user.id, @project_id, @image_id) %>",
+          data: { clickable: { 
+            target_image_id: $(this).attr('id'),
+            top: (parseInt($(this).css('top')) - parseInt(main_content_top)),
+            left: (parseInt($(this).css('left')) - parseInt(main_content_left) ),
+            width: $(this).width(),
+            height: $(this).height() } },
+          success: function(data) {
+            location.href = "<%= user_project_path(current_user.id, @project_id) %>";
+          },
+          error: function(data) {
+
+          }
+        });
+        // $.post(
+        // "<%= user_project_image_clickables_path(current_user.id, @project_id, @image_id) %>",
+        // { clickable: {
+        //  target_id: $(this).attr('id'),
+        //  image_id: $(this).attr('name'),
+        //  top: (parseInt($(this).css('top')) - parseInt(main_content_top)),
+        //  left: (parseInt($(this).css('left')) - parseInt(main_content_left) ),
+        //  width: $(this).width(),
+        //  height: $(this).height()} 
+        // }, function(data) {
+        //  location.href = "<%= user_project_path(current_user.id, @project_id) %>";
+        // }).fail(function(data) {
+
+        // });
+
+        
+        
+      });
+    } //saveClickableArea
+
+    function isNullOrUndefined(variable) { return variable === null || variable === undefined; }
+
+// });
+
+</script>

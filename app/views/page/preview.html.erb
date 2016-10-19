@@ -1,2 +1,51 @@
-<h1>Page#preview</h1>
-<p>Find me in app/views/page/preview.html.erb</p>
+<div class="page">
+  <div class="container">
+
+    <p>Project Name</p>
+    <p>Another Project</p>
+    
+    <div class="mobile-view" style="background-image: url(<%= asset_path 'i-phone-6-black.png' %>)">
+      <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', size: "310x530", class: "contents" %>
+      <div id="canvas"></div>
+    </div>
+    
+    <div class="navbar-fixed-bottom menu-image-link gone">
+      <div class="title">
+        <h2 class="vertical-center">title</h2>
+      </div>
+      <div class="elements">
+        <div class="image-group">
+          <!-- <div class="image-placeholer">
+            <div class="upload">
+              <p class="vertical-center">이미지 가져오기</p>
+            </div>
+          </div> -->
+
+          <!-- <= embedded_svg("group.svg", class: "image-placeholer") %> -->
+          <%= image_tag "group.svg", class: "image-placeholer" %>
+
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  jQuery(function($) {
+
+  }
+</script>
+
