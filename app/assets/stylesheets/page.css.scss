@@ -10,23 +10,19 @@ $imageLinkFontColor: #CFD8DC;
 
 $imageLinkUploadBorderColor: #f5851f;
 
-html, body {
+.page-view {
+  text-align: center;
   width: 100%;
   height: 100%;
   background-color: $bodyColor;
 }
 
-.page {
-  text-align: center;
-}
-
-.page .container {
+.page-view .container {
   width: 57%;
   height: 100vh;
-  /*background-color: gold;*/
 }
 
-.page .mobile-view {
+.page-view .mobile-view {
   position: absolute;
   left:0;
   right:0;
@@ -39,11 +35,11 @@ html, body {
   height: 700px; 
 }
 
-.page .mobile-view .contents {
+.page-view .mobile-view .contents {
   margin-top: 85px;
 }
 
-.page .menu-image-link {
+.page-view .menu-image-link {
   position: absolute;
   width: 100%;
   height: 37%;
@@ -121,18 +117,17 @@ html, body {
 }*/
 
 
-.page .gone {
+.page-view .gone {
   display: none;
 }
 
 
-.page .vertical-center {
+.page-view .vertical-center {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
 }
 
-.page h1, p {
+.page-view h1, p {
   color: white;
 }
-

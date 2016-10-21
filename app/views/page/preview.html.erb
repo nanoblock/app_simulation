@@ -1,4 +1,4 @@
-<div class="page">
+<div class="page-view">
   <div class="container">
 
     <p>Project Name</p>
@@ -20,22 +20,21 @@
               <p class="vertical-center">이미지 가져오기</p>
             </div>
           </div> -->
-
           <!-- <= embedded_svg("group.svg", class: "image-placeholer") %> -->
+<!-- 
+          <= form_for @image, url: images_path, html: { multipart: true } do |f| %>
+            <= f.file_field :avatar %>
+            f.image_submit_tag("comment-button.png")
+          < end %> -->
+
           <%= image_tag "group.svg", class: "image-placeholer" %>
 
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
-          <%= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %>
+          <!-- < @images.each do |images| %>
+            <= content_tag :div, "#{images.name}", id: "#{images.id}" %>
+          < end %> -->
+
+          <!-- <= image_tag 'https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000', class: "image-placeholer" %> -->
+          
         </div>
       </div>
     </div>
@@ -44,8 +43,6 @@
 </div>
 
 <script type="text/javascript">
-  jQuery(function($) {
-
-  }
+  
 </script>
 

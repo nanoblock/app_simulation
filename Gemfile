@@ -15,6 +15,8 @@ gem 'paperclip'
 #view
 gem 'bootstrap-sass'
 gem 'jquery-ui-rails'
+gem 'dropzonejs-rails'
+# gem "jquery-fileupload-rails"
 gem 'browser'
 gem 'high_voltage'
 

@@ -1,0 +1,176 @@
+// Place all the styles related to the images controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap-sprockets", "bootstrap";
+$thumbnail_width: 200px;
+$thumbnail_height: 300px;
+
+.image-view {
+  width: 100%;
+  height: 100%;
+}
+
+.image-view .container {
+  width: 100%;
+  /*height: 100%;*/
+}
+
+#preview {
+  
+}
+
+
+/*################dropzone###################*/
+/*.image-view .container {
+  width: 100%;
+  height: 100vh;
+  background-color: lightslategray;
+  position: relative;
+  display: none;
+}*/
+
+.image-view .vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropzone .dz-default.dz-message span {
+  display: none;
+}
+
+#upload-dropzone {
+  margin: auto;
+  left: 0;
+  position: absolute;
+  border-style: solid;
+  border-width: 3px;
+  border-color: transparent;
+  width: 100%;
+  height: 100vh;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  .dz-message {
+    display: none;
+    /*font-size: 16px;
+    text-align: center;
+    margin: 0*/
+  }
+}
+
+#upload-dropzone:hover {
+  cursor:default;
+}
+
+.dz-preview,
+.dz-file-preview {
+  float: left;
+  position: absolute;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: gray;
+  min-width: $thumbnail_width;
+  min-height: $thumbnail_height;
+  width: $thumbnail_width;
+  height: $thumbnail_height;
+}
+
+.dz-preview:hover .overlay,
+.dz-preview:hover .dz-remove{
+  opacity: 1;
+  transform: scale(1);
+  transform: translateX(0);
+  z-index: 2;
+  cursor: pointer;
+}
+
+.dz-preview:hover .dz-remove {
+  z-index: 3;
+}
+
+.overlay{
+  position:absolute;
+  top:0;right:0;bottom:0;left:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  display:-webkit-flex;
+  -webkit-align-item:center;
+  -webkit-justify-content:center;
+
+  transform: scale(1.3);
+  line-height: 50px;
+  color: #fff;
+
+  background-color: rgba(245, 133, 31, 0.8);
+
+  transform: translateX(-100%);
+  -webkit-transition: transform 0.5s ease-out;
+  -o-transition: transform 0.5s ease-out;
+  transition: transform 0.5s ease-out;
+
+  opacity: 0;
+  transition: transform .4s ease 0s;
+}
+
+.overlay span{
+  position:absolute;
+  width: 70%;
+  /*height: 20%;*/
+  /*height: 10%px;*/
+  text-align: center;
+  font-weight: bold;
+  font-size: 1em;
+  color: white;
+  border-style: solid;
+  border-width: 2px;
+  vertical-align: middle;
+  margin: auto;
+}
+
+.dz-preview img{
+  transition: transform .8s ease;
+}
+
+.dz-preview:hover .dz-thumbnail{
+  transform: scale(1.1);
+}
+
+.dz-thumbnail {
+  position: absolute;
+  margin: auto;
+  width: $thumbnail_width;
+  height: $thumbnail_height;
+  /*left: 0;*/
+  z-index: 1;
+}
+
+.dz-remove {
+  position: relative;
+  float: right;
+  margin-top: 10px;
+  margin-right: 15px;
+  color: white;
+  z-index: 3;
+  font-size: 5em;
+  opacity: 0;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  /*transition: transform .4s ease 0s;*/
+}
+
+/*.dz-filename , .dz-size, .dz-my-separator , .dz-remove {
+    font: 11px "Lucida Grande", Lucida, Verdana, sans-serif;
+}*/
+
+.dz-filename , .dz-my-separator, .dz-size , .dz-error-message {
+  float: left;
+}
+
+.dz-my-separator {
+  display: none;
+}
+/*###################################*/

@@ -1,0 +1,153 @@
+<div class="image-view">
+  <div class="container">
+    <%= form_tag images_path, class: "dropzone vertical-center", id: "upload-dropzone" do %>
+      <!-- <div class="fallback">
+        <= file_field_tag "image" %>
+      </div> -->
+      <div id="preview_area" class="vertical-center"></div>  
+    <% end %>
+
+    <!-- <div id="preview_area" class="vertical-center"></div>   -->
+    <div id="preview-template">
+      <div class="dz-preview dz-file-preview">
+  <!-- <h1>test</h1> -->
+    <!-- <div style="position: absolute; left: 30px; z-index: 2;">testtest</div>
+    <div style="position: absolute; z-index: 1;"><img data-dz-thumbnail="" /></div> -->
+    <!-- <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div> -->
+
+      <img data-dz-thumbnail="" />
+      <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+        <div class="dz-details">
+          
+          <!--   <div class="dz-size"><span data-dz-size=""></span></div>
+            <div class="dz-filename"><span data-dz-name=""></span></div>
+             -->
+            
+        </div>
+        <!-- <div class="dz-success-mark"><span>✔</span></div> -->
+        <!-- <div class="dz-error-mark"><span>✘</span></div> -->
+        <!-- <div class="dz-error-message"><span data-dz-errormessage></span></div> -->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  Dropzone.autoDiscover = false
+
+  var headlineDropzone = new Dropzone("#upload-dropzone", {
+
+  // url: "/upload_photo", // You can override url of form in here.
+  paramName: 'image[photo]',
+  maxFilesize: 300, // in MB
+
+  parallelUploads: 10,
+
+  acceptedFiles:'.jpg, .png, .jpeg, .gif', // type of files
+  dictDefaultMessage: "",
+  previewsContainer:'#preview_area',
+  previewTemplate: document.querySelector('#preview-template').innerHTML,
+
+  init: function(){ 
+
+    this.on('addedfile', function(file) {
+      // Called when a file is added to the list.
+      // file.previewElement.remove()
+    });
+
+//     this.on('sending', function(file, xhr, formData) {
+//       // Called just before each file is sent.
+// file.previewElement.remove()
+//     });
+
+    this.on('success', function(file, json) {
+      // file.previewElement.addEventListener("click", function() {
+      //   alert(this.attr());
+      // });
+        
+      // alert("ok");
+      // Called when file uploaded successfully.
+      // $(".test").on("click", function(e) {
+      //   alert("TEST");
+      // });
+      // $(".test").hover(function(e) {
+      //   $(this).css("background-color", "yellow");
+      // });
+    });
+
+  }
+
+});
+
+
+// new Dropzone '#upload-dropzone',
+//   uploadMultiple: false
+//   init: ->
+//     @on 'success', (file, json) ->
+//       # アップロード成功時の処理をここに実装します。
+//   dictDefaultMessage: '''
+//     <i class="fa fa-file-o fa-2x"></i><br>
+//     <br>
+//     ファイルをここにドロップするか<br>
+//     ここをクリックして下さい
+//   '''
+</script>
+
+<!-- <div class="image-view">
+  <div class="container">
+
+    <div class="file-upload">
+      <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+      <div class="image-upload-wrap">
+        <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*" />
+        <div class="drag-text">
+          <h3>Drag and drop a file or select add Image</h3>
+        </div>
+      </div>
+      <div class="file-upload-content">
+        <img class="file-upload-image" src="#" alt="your image" />
+        <div class="image-title-wrap">
+          <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        $('.image-upload-wrap').hide();
+
+        $('.file-upload-image').attr('src', e.target.result);
+        $('.file-upload-content').show();
+
+        $('.image-title').html(input.files[0].name);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+
+    } else {
+      removeUpload();
+    }
+  }
+
+  function removeUpload() {
+    $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+    $('.file-upload-content').hide();
+    $('.image-upload-wrap').show();
+  }
+  $('.image-upload-wrap').bind('dragover', function () {
+      $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+      $('.image-upload-wrap').removeClass('image-dropping');
+  });
+</script> -->
