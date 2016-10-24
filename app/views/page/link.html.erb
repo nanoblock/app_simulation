@@ -1,2 +1,274 @@
-<h1>Page#link</h1>
-<p>Find me in app/views/page/link.html.erb</p>
+<div class="page-view">
+  <div class="container">
+
+    <div class="top-menu" style="margin: 0 auto; display:table;">
+      <%= image_tag "/assets/preview/preview_active.png", class: "preview-mode", id: 'preview',style: "float: left;" %>
+      <%= image_tag "/assets/preview/page_link.png", class: "link-mode", id: 'page_link', style: "float: left;" %>
+      <%= image_tag "/assets/preview/save.png", class: "save-mode", id: 'save', style: "float: left;" %>
+      <div style="clear: both;"></div>
+    </div>
+    
+    <%= image_tag "/assets/preview/i-phone-6-silver.png", class: "mobile-wrap" %>
+    <div class="mobile-view" style="background-image: url(<%= asset_path @image.photo.url %>)">
+      <div id="canvas"></div>
+    </div>
+<!-- https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000) -->
+    <div class="navbar-fixed-bottom menu-image-link">
+      <div class="elements">
+          <div class="title">이미지 총 세장</div>
+        <div class="image-group">
+          <div class="image-placeholer">
+            <div>
+              <%= image_tag "/assets/preview/link_upload.svg", class: "upload-image", style: "margin-top: -170px;" %>
+            </div>
+            <div class="text" style="visibility:hidden;">hidden</div>
+          </div>
+
+          <% @images.each do |images| %>
+            <div class="image-placeholer link">
+              <%= image_tag "#{images.photo(:thumb)}", class: "link-images", id: "#{images.id}" %>
+              <div class="text">test</div>
+            </div>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- <div class="project-name">PROJECT NAME</div> -->
+
+  </div>
+</div>
+
+<script type="text/javascript">
+  var select_image_id = null
+
+  $(document).on("keydown", function(e) {
+    if (e.which == 8) {
+      $('.clicked').each(function(index, value) {
+        $(this).remove();
+        $(".menu-image-link").css('display', 'none').hide().fadeOut();
+      });
+    }
+  });
+
+  $(".top-menu").children().on("click", function(e) {
+    if($(this).attr('class') == "save-mode") {
+      gen_boxs = $('*[class^="gen_box_"]');
+      saveClickableArea();
+      location.href = "<%= images_path %>";
+    }
+  });
+
+  $(".link").children().on("click", function(e) {
+    var children = $(this);
+    select_image_id = children.attr('id');
+    $('.gen-box-tracker').attr('id', select_image_id);
+    $(".gen-box-tracker").removeClass('gen-box-tracker');
+    $(".menu-image-link").css('display', 'none').hide().fadeOut();
+  });
+
+  var mobileView = $('.mobile-view');
+
+  var main_content = $('#canvas');
+  var gen_box_count  = 1;
+
+  var main_content_left = parseInt(main_content.offset().left);
+  var main_content_top = parseInt(main_content.offset().top);
+  var main_content_right = parseInt(main_content_left) + parseInt(mobileView.width());
+  var main_content_bottom = parseInt(main_content_top) + parseInt(mobileView.height());
+  var name_sequence = 1;
+
+  // alert("left -> "+main_content_left+" top -> "+main_content_top+" right -> "+main_content_right+" bottom -> "+main_content_bottom);
+  
+  main_content.on({
+    dragstart: function(e) {
+      x = e.pageX,
+      y = e.pageY;
+      $(".hover").css("cursor", "move");
+    },
+    resizestart: function(e) {
+
+    },
+    dragstop: function(e) {
+      $(".hover").css("cursor", "pointer");
+    }
+  });
+  var selected_value;
+
+  main_content.selectable({
+    distance: 50,
+    
+    create: function(e) {
+      <% @image.clickables.each do |clickables| %>
+        drawGenBox(gen_box_count, "<%= clickables.target_image_id %>", "<%= clickables.width %>", "<%= clickables.height %>", "<%= clickables.left %>", "<%= clickables.top %>");
+      <% end %>
+
+    },
+
+    start: function(e) {
+      x_begin = e.pageX,
+      y_begin = e.pageY;
+    },
+
+    stop: function(e) {
+      x_end = e.pageX,
+      y_end = e.pageY;
+
+      drawGenBox(gen_box_count);
+    }});
+
+    function drawGenBox(box_count, box_target_image_id, box_width, box_height, box_left, box_top) {
+      // alert("width"+box_width+" box_height "+box_height+" box_left "+box_left+ " box_top "+box_top);
+      var gen_box = null;
+      if(isNullOrUndefined(box_width)) {
+        if( x_end - x_begin >= 0 ) {
+          width  = x_end - x_begin,
+          drag_left = false;
+        } else {
+          width  = x_begin - x_end,
+          drag_left = true;
+        }
+      } else {
+        width = parseInt(box_width);
+      }
+
+      if(isNullOrUndefined(box_height)) {
+        if( y_end - y_begin >= 0) {
+          height = y_end - y_begin,
+          drag_top = false;
+          
+        } else {
+          height = y_begin - y_end,
+          drag_top = true;
+        }
+      } else {
+        height = parseInt(box_height);
+      }
+
+      main_content.append('<div class="gen_box_' + box_count + ' '+ "hover"+'"></div>');
+
+      gen_box = $('.gen_box_' + box_count);
+
+      $(".hover").hover(function() {
+        $(".hover").css("cursor", "pointer");
+      });
+
+      if(isNullOrUndefined(box_target_image_id) != true) {
+        $(".link-images").each(function(index, value) {
+          if($(value).attr('id') == box_target_image_id) {
+            gen_box.attr('id', box_target_image_id);
+          }
+        });
+      }
+
+      gen_box.on("click", function(e) {
+        if ($(this).hasClass("clicked") == true) {
+          gen_box.removeClass('clicked');
+
+          $(".menu-image-link").css('display', 'none').hide().fadeOut();
+          return false;
+        }
+        gen_box.addClass('gen-box-tracker');
+        gen_box.addClass('clicked');
+        gen_box.attr('name', name_sequence);
+        name_sequence++;
+
+        if( $('.gen-box-tracker').size() != 1) {
+          var first = null;
+          var second = null;
+        $('.gen-box-tracker').each(function(index, value) {
+            if(index == 0) {
+              first = $(value);
+            } else {
+              second = $(value);
+            }
+          });
+          if (first.attr('name') > second.attr('name')){
+            second.removeClass('gen-box-tracker');
+          } else {
+            first.removeClass('gen-box-tracker');
+          }
+        }
+
+        $(".link-images").each(function(index, value) {
+          if ($(value).attr('id') == $(".gen-box-tracker").attr('id') && isNullOrUndefined($(".gen-box-tracker").attr('id')) != true) {
+            $(value).css('border', 'solid 5px yellow');
+          } else {
+            $(value).css('border', 'solid 5px transparent');
+          }
+        });
+
+        $(".menu-image-link").css('display', 'inline').hide().fadeIn();
+      });
+
+      gen_box.css({
+        // 'rgba(0, 0, 0, 0.8)'
+        'background' : 'rgba(0, 0, 0, 0.4)',
+        'width'      : width,
+        'height'     : height,
+        'position'   : 'absolute'
+      })
+      .draggable({ containment: "parent" })
+      .resizable({ containment: "parent" });
+
+      if(isNullOrUndefined(box_left)) {
+        drag_left ? gen_box.offset({ left: x_end }) : gen_box.offset({ left: x_begin });
+      } else {
+        gen_box.offset({ left: parseInt(box_left)+parseInt(main_content_left) });
+      }
+      
+      if(isNullOrUndefined(box_top)) {
+        drag_top ? gen_box.offset({ top: y_end }) : gen_box.offset({ top: y_begin });
+      } else {
+        gen_box.offset({ top: parseInt(box_top)+parseInt(main_content_top) });
+      }
+      gen_box_count++;
+    }; //drawGenBox
+
+    function check_link() {
+      gen_boxs.each(function(index, value) {
+        if( isNullOrUndefined($(this).attr('id')) ) {
+          alert("이미지를 연결해 주세요");
+          e.preventDefault();
+        }
+      });
+    } //check_link
+
+    function destroyClickableArea() {
+      $.ajax({
+        type: "POST",
+        url: "<%= destroy_all_image_clickables_path(@image_id) %>",
+        success: function(data) {
+
+        },
+        error: function(data) {
+
+        }
+      });
+    } //destroyClickableArea
+
+    function saveClickableArea() {
+      destroyClickableArea();
+      gen_boxs.each(function(index, value) {
+        $.ajax({
+          type: "POST",
+          url: "<%= image_clickables_path(@image_id) %>",
+          data: { clickable: { 
+            target_image_id: $(this).attr('id'),
+            top: (parseInt($(this).css('top'))),
+            left: (parseInt($(this).css('left'))),
+            width: $(this).width(),
+            height: $(this).height() } },
+          success: function(data) {
+
+          },
+          error: function(data) {
+
+          }
+        });
+      });
+    } //saveClickableArea
+
+    function isNullOrUndefined(variable) { return variable === null || variable === undefined; }
+</script>

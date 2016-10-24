@@ -25,25 +25,7 @@
 
   // jQuery(function($) {
 
-  $(document).on("keydown", function(e) {
-    if (e.which == 8) {
-      $('.click-check').each(function(index, value) {
-        $(this).remove();
-      });
-      
-      if( $(".click-check").size() == 0 ) {
-        $(".relation").css('display', 'none').hide().fadeOut();
-      }
-    }
-  });
-
-  $(".relation").children().on("click", function(e) {
-    var relation_child = $(this).attr('id');
-
-    $(".click-check").each(function(index, value) {
-      $(this).attr('id', relation_child);
-    });
-  });
+    
 
   $(".save").on("click", function(e) {
     gen_boxs = $('*[class^="gen_box_"]');

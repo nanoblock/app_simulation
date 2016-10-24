@@ -33,7 +33,7 @@ class ImagesController < ApplicationController
     if @images.empty?
       render status:400, nothing: true
     else
-      render status:200, nothing: true
+      # render status:200, nothing: true
     end
   end
 

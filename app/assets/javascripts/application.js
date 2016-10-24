@@ -18,4 +18,3 @@
 //= require bootstrap
 //= require bootstrap-sprockets
 //= require dropzone
-

@@ -8,6 +8,7 @@
     <% end %>
 
     <div id='preview'></div>
+
   </div>
 </div>
 
@@ -76,8 +77,7 @@
     });
 
     this.on('success', function(file, json) {
-      $(file.previewTemplate).find('.dz-remove').attr('id', json.id);
-      var id = $(file.previewTemplate).find('.dz-remove').attr('id');
+      var id = json.id
 
       // $(file.previewTemplate).find('.dz-remove')
       $(file.previewTemplate).find('.dz-remove').on('click', function(event) {
@@ -92,7 +92,18 @@
 
       // alert($(file.previewTemplate).find('.overlay'));
         $(file.previewTemplate).find('.overlay').on('click', function(event) {
-          alert("Move Preview Link page");
+
+          // $.ajax({
+          //   type: 'POST',
+          //   url: '/page/link',
+          //   data: { 
+          //     'image_id': id, 
+          //   },
+          //   success: function(res) {
+          //     location.href = "<= page_link_path(id) %>";
+          //   }
+          // });
+          window.location.href = "/page/link/"+id;
         });
 
     });
