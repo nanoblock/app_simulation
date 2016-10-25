@@ -230,9 +230,24 @@ $menuImageLinkHeight: 180px;
       }
 
     }  
-  }
+  }  
+}
 
-  
+.preview-view .preview-name {
+  margin-top:44px;
+  margin-bottom: 12px;
+  font-size: 24px;
+  font-weight: bold;
+  letter-spacing: 0.4px;
+  text-align: center;
+  color: #407abd;
+}
+.preview-view .preview-line {
+  width: 210px;
+  object-fit: contain;
+  border: solid 2px #407abd;
+  margin: auto;
+  margin-bottom: 56px;
 }
 
 /*.menu-image-link .elements:hover {
