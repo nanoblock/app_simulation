@@ -20,4 +20,12 @@ class Image < ActiveRecord::Base
     content_type: { content_type: ["image/jpg", "image/jpeg", "image/png"] },
     less_than: 3.megabytes
 
+  before_post_process :rename
+
+  def rename
+    attachment_file_name = self.photo.instance_read(:file_name).to_s
+    attachment_file_name = attachment_file_name.to_s.split(".").first
+    self.photo.instance_write(:file_name, attachment_file_name)
+  end
+
 end

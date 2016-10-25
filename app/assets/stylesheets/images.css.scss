@@ -166,11 +166,11 @@ $thumbnail_height: 300px;
     font: 11px "Lucida Grande", Lucida, Verdana, sans-serif;
 }*/
 
-.dz-filename , .dz-my-separator, .dz-size , .dz-error-message {
+.dz-my-separator, .dz-size , .dz-error-message {
   float: left;
 }
 
 .dz-my-separator {
-  display: none;
+  display: block;
 }
 /*###################################*/
