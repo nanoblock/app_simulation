@@ -45,7 +45,6 @@
               <div class="text">test</div>
             </div>
           <% end %>
-
         </div>
       </div>
     </div>
@@ -65,6 +64,10 @@
         $(".menu-image-link").css('display', 'none').hide().fadeOut();
       });
     }
+  });
+
+  $('body').bind("click", function(e) {
+    $(".menu-image-link").css('display', 'none').hide().fadeOut();
   });
 
   $(".top-menu").children().on("click", function(e) {
@@ -181,12 +184,21 @@
         });
       }
 
-      gen_box.on("click", function(e) {
+      gen_box.on("click", function(e) {event.stopPropagation();
+        clickedGenBox = $(this);
         $(".clicked").each(function(index, value) {
-          $(value).removeClass('clicked');
-          $(".menu-image-link").css('display', 'none').hide().fadeOut();
-          return false;
-        });
+            if( clickedGenBox.attr('class') == $(value).attr('class')) {
+              $(".menu-image-link").css('display', 'none').hide().fadeOut();
+              $(value).removeClass('clicked');
+              e.stopPropagation();
+            }
+            
+          });
+        if ( $(".clicked").hasClass('clicked') == true) {
+          
+        }
+
+        
         
         gen_box.addClass('gen-box-tracker');
         gen_box.addClass('clicked');
