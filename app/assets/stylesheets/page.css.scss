@@ -8,7 +8,6 @@ $imageLinkColor: #0A2646;
 $imageLinkFontColor: #FFFFFF;
 
 $imageLinkUploadBorderColor: #f5851f;
-$clickableBackgroundColor: #f5851f;
 
 $menuImageLinkWidth: 120px;
 $menuImageLinkHeight: 180px;
@@ -21,11 +20,21 @@ $menuImageLinkHeight: 180px;
 @media screen and (min-width: 1025px) and (max-width: 1280px) { } /*(min-width: 1025px) and (max-width: 1280px)*/
 @media screen and (min-width: 1281px) and (max-width: 1440px) { } /*(min-width: 1281px) and (max-width: 1440px)*/
 @media screen and (min-width: 1441px) and (max-width: 1600px) { 
-  .page-view .mobile-wrap {
+  .page-view .mobile-wrap,
+  .preview-view .mobile-wrap {
     /*width: 360px;*/
     height: 25%;
     margin-top: 52px;
     height: auto;
+  }
+
+  .page-view .top-menu,
+  .preview-view .top-menu {
+      .preview-mode img, .top-menu-dropdown-preview,
+      .link-mode img, .top-menu-dropdown-link,
+      .save-mode img, .top-menu-dropdown-save {
+        width: 120px;
+      }
   }
 
   .page-view .mobile-view {
@@ -33,6 +42,16 @@ $menuImageLinkHeight: 180px;
     width: 312.9px;
     height: 556.1px;
     margin-top: 89.6px;
+  }
+
+  .preview-view .mobile-view img {
+    top: 105px;
+    width: 312.9px;
+    height: 556.1px;
+    margin-top: 89.6px;
+
+    /*width: 240.4px;
+    height: 498px;*/
   }
 
   .page-view .menu-image-link {
@@ -64,36 +83,58 @@ $menuImageLinkHeight: 180px;
 
 @media screen and (min-width: 1601px) {}
 
-.page-view {
+.page-view, .preview-view {
   text-align: center;
   width: 100%;
   height: 100%;
   background-color: $bodyColor;
 }
 
-.page-view .container {
+.page-view .container,
+.preview-view .container {
   width: 57%;
   height: 100vh;
 }
 
-.page-view .top-menu {
-  text-align: center;
-  .preview-mode {
+.page-view .top-menu,
+.preview-view .top-menu {
+  display:table;
+  margin-left: auto; margin-right: auto;
 
+  .top-menu-dropdown-preview,
+  .top-menu-dropdown-link,
+  .top-menu-dropdown-save {
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
   }
-  .link-mode {
 
+  .preview-mode:hover {
+    .top-menu-dropdown-preview{
+      visibility: visible;
+    }
   }
-  .save:hover {
-    
+
+  .link-mode:hover {
+    .top-menu-dropdown-link {
+      visibility: visible;
+    }
+  }
+
+  .save-mode:hover {
+    .top-menu-dropdown-save {
+      visibility: visible;
+    }
   }
 }
 
-.page-view .top-menu:hover {
+.page-view .top-menu:hover,
+.preview-view .top-menu:hover {
   cursor: pointer;
 }
 
-.page-view .mobile-wrap {
+.page-view .mobile-wrap,
+.preview-view .mobile-wrap {
   position: absolute;
   left:0;
   right:0;
@@ -111,6 +152,26 @@ $menuImageLinkHeight: 180px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   z-index: 2;
+}
+
+.preview-view .mobile-view{
+  position: absolute;
+  left: 0; right: 0; 
+  margin-left: auto; margin-right: auto;
+  z-index: 2;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  top: 105px;
+  width: 312.9px;
+  height: 556.1px;
+  margin-top: 89.6px;
+  display: none;
+}
+
+.preview-view .mobile-view .clickable {
+  position: absolute;
+  z-index: 4;
+  background: transparent;
 }
 
 .page-view .mobile-view #canvas { 

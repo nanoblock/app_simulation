@@ -1,11 +1,26 @@
 <div class="page-view">
   <div class="container">
 
-    <div class="top-menu" style="margin: 0 auto; display:table;">
-      <%= image_tag "/assets/preview/preview_active.png", class: "preview-mode", id: 'preview',style: "float: left;" %>
-      <%= image_tag "/assets/preview/page_link.png", class: "link-mode", id: 'page_link', style: "float: left;" %>
-      <%= image_tag "/assets/preview/save.png", class: "save-mode", id: 'save', style: "float: left;" %>
-      <div style="clear: both;"></div>
+    <div class="top-menu">
+        <div class="preview-mode" style="float: left;">
+          <%= image_tag "/assets/preview/preview.png" %>
+          <div class="top-menu-dropdown-preview">
+            <%= image_tag '/assets/preview/preview_hover.svg' %>
+          </div>
+        </div>
+        <div class="link-mode" style="float: left;">
+          <%= image_tag "/assets/preview/page_link_active.png" %>
+          <div class="top-menu-dropdown-link">
+            <%= image_tag '/assets/preview/page_link_hover.svg' %>
+          </div>
+        </div>
+        <div class="save-mode" style="float: left;">
+          <%= image_tag "/assets/preview/save.png" %>
+          <div class="top-menu-dropdown-save">
+            <%= image_tag '/assets/preview/save_hover.svg' %>
+          </div>
+        </div>
+        <div style="clear: both;"></div>
     </div>
     
     <%= image_tag "/assets/preview/i-phone-6-silver.png", class: "mobile-wrap" %>
@@ -53,10 +68,14 @@
   });
 
   $(".top-menu").children().on("click", function(e) {
-    if($(this).attr('class') == "save-mode") {
+    var clazz = $(this).attr('class');
+    var id = <%= @image.id %>
+    if(clazz == "save-mode") {
       gen_boxs = $('*[class^="gen_box_"]');
       saveClickableArea();
       location.href = "<%= images_path %>";
+    } else if(clazz == "preview-mode") {
+      location.href = "/page/preview/" + id;
     }
   });
 
@@ -163,12 +182,12 @@
       }
 
       gen_box.on("click", function(e) {
-        if ($(this).hasClass("clicked") == true) {
-          gen_box.removeClass('clicked');
-
+        $(".clicked").each(function(index, value) {
+          $(value).removeClass('clicked');
           $(".menu-image-link").css('display', 'none').hide().fadeOut();
           return false;
-        }
+        });
+        
         gen_box.addClass('gen-box-tracker');
         gen_box.addClass('clicked');
         gen_box.attr('name', name_sequence);

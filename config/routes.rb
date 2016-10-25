@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  post  'page/preview'
-  get  'page/link/:id', to: 'page#link'
-  get   'page/preview'
+
+  get  'page/preview/:id',to: 'page#preview', as: 'preview_page'
+  get 'page/preview', to: 'page#preview'
+  get  'page/link/:id', to: 'page#link', as: 'link_page'
   # get   'page/link', on: :member
   # match 'page/link/:id'
 

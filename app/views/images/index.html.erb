@@ -2,7 +2,7 @@
   <div class="container">
   <div style="margin: 50px;">
   <% @images.each do |image| %>
-    <%= image_tag image.photo(:thumb), id: "#{image.id}", style: "margin-left:20px;", size: "200x300" %>
+    <%= link_to image_tag(image.photo(:thumb), id: "#{image.id}", style: "margin-left:20px;", size: "200x300"), link_page_path(image.id) %>
   <% end %>
   </div>
   </div>
