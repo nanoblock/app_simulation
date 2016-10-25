@@ -66,13 +66,16 @@ $menuImageLinkHeight: 180px;
     width: 312.9px;
     height: 556.1px;
     margin-top: 89.6px;
-
     /*width: 240.4px;
     height: 498px;*/
   }
 
   .page-view .menu-image-link {
     height: 300px;
+    .text {
+      margin-left: 5px;
+      width: 120px;
+    }
   }
 
   .menu-image-link .elements .title {
@@ -199,10 +202,133 @@ $menuImageLinkHeight: 180px;
   z-index: 3;
 }
 
+.page-view .drop-right {
+  position: absolute;
+  z-index: 5;
+  /*background-size: 100% 100%;
+  background-repeat: no-repeat;*/
+  /*background-image: url(/assets/preview/page_link_drop_right.png);*/
+  .message-box {
+    position: absolute;
+    z-index: 1;
+  }
+  .title {
+    position: absolute;
+    display: inline-block;
+    margin-top: 16px;
+    margin-left: 23px;
+    width: 200px;
+    text-align: left;
+    font-size: 14px;
+    letter-spacing: 0.3px;
+    color: #000000;
+    z-index: 2;
+  }
+  .close {
+    position: absolute;
+    margin-left: 276px;
+    margin-top: 16px;
+    color: black;
+    z-index: 3;
+  }
+
+  .dropdown {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 23px;
+    width: 180px;
+    height: 30px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    border: solid 1px #cccccc;
+    z-index: 4;
+
+    .drop-title {
+      position: absolute;
+      width: 42px;
+      height: 18px;
+      margin: 6px 128px 6px 10px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #cccccc;
+    }
+    .arrow-down {
+      position: absolute;
+      object-fit: contain;
+      color: #333333;
+      margin-top: 2px;
+      margin-right: 10px;
+      margin-bottom: 12px;
+      margin-left: 161px;
+    }
+    .dropdown-content {
+      display: none;
+      min-width: 180px;
+      max-height: 180px;
+      margin-top: 43px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.9);
+      z-index: 6;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+
+      .text-wrap {
+        background-color: #ffffff;
+        width: 100%;
+        .text {
+          font-size: 12px;
+          color: #9b9b9b;
+          line-height: 30px;
+          text-align: left;
+          border-bottom: solid 0.2px rgba(151, 151, 151, 0.4);
+          margin: 0px 12px;
+          vertical-align: top;
+          cursor: pointer;
+        }
+        .text-wrap:hover {
+          background-color: rgba(129, 145, 152, 0.2);
+        }
+      }
+    }
+  }
+
+  .check {
+    position: absolute;
+    width: 75px;
+    height: 30px;
+    border-radius: 2px;
+    margin: 40px 12px 17px 213px;
+    background-color: #ffac48;
+    font-size: 12px;
+    text-align: center;
+    padding: auto;
+    line-height: 30px;
+    color: #ffffff;
+    z-index: 5;
+  }
+}
+
 .page-view .menu-image-link {
   width: 100%;
   background-color: $imageLinkColor;
   display: none;
+  .text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .link-menu-close {
+    position: absolute;
+    color: white;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-image: url(/assets/preview/page_menu_link_close.png);
+    margin-left: 95%;
+    width: 20px;
+    height: 20px;
+    margin-top: -20px;
+
+  }
 }
 
 .slide-up .overlay{

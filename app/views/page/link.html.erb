@@ -1,4 +1,31 @@
 <div class="page-view">
+<div class="drop-right" style="display:none;">
+  <%= image_tag '/assets/preview/page_link_drop_right.png', class: 'message-box'%>
+  <div class="title">연결하기:</div>
+  <%= image_tag '/assets/preview/page_link_drop_right_close.svg', class: 'close' %>
+
+  <div class="dropdown">
+    <div class="drop-title">선택하기</div>
+      <div class="arrow-down"> <%= image_tag '/assets/preview/arrow-down.svg'%> </div>
+      <div class="dropdown-content">
+      <% @images.each do |images| %>
+        <div class="text-wrap"><div class="text" id="<%= images.id %>"><%= images.photo_file_name %></div></div>
+      <% end %>
+        <div class="text-wrap"><div class="text">Link 2</div></div>
+        <div class="text-wrap"><div class="text">Link 3</div></div>
+        <div class="text-wrap"><div class="text">Link 4</div></div>
+        <div class="text-wrap"><div class="text">Link 5</div></div>
+        <div class="text-wrap"><div class="text">Link 6</div></div>
+        <div class="text-wrap"><div class="text">Link 7</div></div>
+        <div class="text-wrap"><div class="text">Link 8</div></div>
+      </div>
+  </div>
+  <div class="check">
+    확인
+  </div>
+
+</div>
+<!-- left: 500px; top: 600px; -->
   <div class="container">
 
     <div class="top-menu">
@@ -30,7 +57,9 @@
 <!-- https://placeholdit.imgix.net/~text?bg=F6F6F6&txtclr=000000) -->
     <div class="navbar-fixed-bottom menu-image-link">
       <div class="elements">
-          <div class="title">이미지 총 세장</div>
+          <div class="title">이미지 총 <%= @images.size %>장</div>
+          <div class="link-menu-close"></div>
+          <!-- <= image_tag '', size: '20x20', class: 'link-menu-close' %> -->
         <div class="image-group">
           <div class="image-placeholer">
             <div>
@@ -42,32 +71,38 @@
           <% @images.each do |images| %>
             <div class="image-placeholer link">
               <%= image_tag "#{images.photo(:thumb)}", class: "link-images", id: "#{images.id}" %>
-              <div class="text">test</div>
+              <div class="text" id="<%= images.id %>"><%= images.photo_file_name %></div>
             </div>
           <% end %>
         </div>
       </div>
     </div>
 
-    <!-- <div class="project-name">PROJECT NAME</div> -->
-
   </div>
 </div>
 
 <script type="text/javascript">
   var select_image_id = null
+  var documentWidth = parseInt($(document).width()/2);
 
   $(document).on("keydown", function(e) {
     if (e.which == 8) {
       $('.clicked').each(function(index, value) {
         $(this).remove();
-        $(".menu-image-link").css('display', 'none').hide().fadeOut();
+        $(".menu-image-link").fadeOut(300);
+        $(".drop-right").fadeOut(300);
       });
     }
   });
 
-  $('body').bind("click", function(e) {
-    $(".menu-image-link").css('display', 'none').hide().fadeOut();
+  // $('body').bind("click", function(e) {
+  //   $(".menu-image-link").fadeOut(300);
+  //   $(".drop-right").fadeOut(300);
+  // });
+
+  $('.close').on('click', function(e) {
+    $(".menu-image-link").fadeOut(300);
+    $(".drop-right").fadeOut(300);
   });
 
   $(".top-menu").children().on("click", function(e) {
@@ -82,12 +117,38 @@
     }
   });
 
+  $(".link-menu-close").on('click', function(e) {
+    $(".menu-image-link").fadeOut(300);
+  });
+
+  $(".check").on('click', function(e) {
+    $(".menu-image-link").fadeOut(300);
+  })
+
   $(".link").children().on("click", function(e) {
     var children = $(this);
     select_image_id = children.attr('id');
     $('.gen-box-tracker').attr('id', select_image_id);
     $(".gen-box-tracker").removeClass('gen-box-tracker');
-    $(".menu-image-link").css('display', 'none').hide().fadeOut();
+    $(".menu-image-link").fadeOut(300);
+    $(".drop-right").fadeOut(300);
+  });
+
+  $(".dropdown").on('click', function(e) {
+    if ( $(".dropdown-content").css('display') == 'none') {
+      $(".dropdown-content").fadeIn(200);
+    } else {
+      $(".dropdown-content").fadeOut(200);
+    }
+  });
+
+  $(".dropdown-content").children().on('click', function(e) {
+    children = $(this).children();
+    select_image_id = children.attr('id');
+    $('.gen-box-tracker').attr('id', select_image_id);
+    $(".gen-box-tracker").removeClass('gen-box-tracker');
+    // $(".menu-image-link").fadeOut(300);
+    // $(".drop-right").fadeOut(300);
   });
 
   var mobileView = $('.mobile-view');
@@ -101,19 +162,25 @@
   var main_content_bottom = parseInt(main_content_top) + parseInt(mobileView.height());
   var name_sequence = 1;
 
-  // alert("left -> "+main_content_left+" top -> "+main_content_top+" right -> "+main_content_right+" bottom -> "+main_content_bottom);
-  
   main_content.on({
     dragstart: function(e) {
       x = e.pageX,
       y = e.pageY;
       $(".hover").css("cursor", "move");
+      $(".drop-right").fadeOut(300);
+      $(".menu-image-link").fadeOut(300);
     },
     resizestart: function(e) {
 
     },
     dragstop: function(e) {
       $(".hover").css("cursor", "pointer");
+      // $(".drop-right").css({
+      //       'top'   : gen_box.offset().top,
+      //       'left'  : gen_box_right
+      //     });
+      // $(".drop-right").fadeIn(300);
+
     }
   });
   var selected_value;
@@ -141,7 +208,6 @@
     }});
 
     function drawGenBox(box_count, box_target_image_id, box_width, box_height, box_left, box_top) {
-      // alert("width"+box_width+" box_height "+box_height+" box_left "+box_left+ " box_top "+box_top);
       var gen_box = null;
       if(isNullOrUndefined(box_width)) {
         if( x_end - x_begin >= 0 ) {
@@ -184,22 +250,28 @@
         });
       }
 
-      gen_box.on("click", function(e) {event.stopPropagation();
-        clickedGenBox = $(this);
-        $(".clicked").each(function(index, value) {
-            if( clickedGenBox.attr('class') == $(value).attr('class')) {
-              $(".menu-image-link").css('display', 'none').hide().fadeOut();
-              $(value).removeClass('clicked');
-              e.stopPropagation();
-            }
-            
-          });
-        if ( $(".clicked").hasClass('clicked') == true) {
-          
-        }
+      gen_box.on("click", function(e) {
+        e.stopPropagation();
 
+        clickedGenBox = $(this);
+
+        gen_box_left = parseInt(gen_box.offset().left);
+        gen_box_right = parseInt(gen_box_left + gen_box.width());
+
+        $(".drop-right").css({
+            'top'   : gen_box.offset().top,
+            'left'  : gen_box_right
+          });
         
-        
+        $(".clicked").each(function(index, value) {
+          if( clickedGenBox.attr('class') == $(value).attr('class')) {
+            // $(".menu-image-link").fadeOut(300);
+            // $(".drop-right").fadeOut(300);
+            $(value).removeClass('clicked');
+            e.stopPropagation();
+          }
+        });
+
         gen_box.addClass('gen-box-tracker');
         gen_box.addClass('clicked');
         gen_box.attr('name', name_sequence);
@@ -225,12 +297,21 @@
         $(".link-images").each(function(index, value) {
           if ($(value).attr('id') == $(".gen-box-tracker").attr('id') && isNullOrUndefined($(".gen-box-tracker").attr('id')) != true) {
             $(value).css('border', 'solid 5px yellow');
+            selectText = $(value).parent().find(".text").text();
+
+            $(".text-wrap").find(".text").each(function(dropIndex, dropValue) {
+              if($(dropValue).text() == selectText) {
+                $(".drop-title").text(selectText);
+              }
+            });
           } else {
             $(value).css('border', 'solid 5px transparent');
           }
         });
 
-        $(".menu-image-link").css('display', 'inline').hide().fadeIn();
+
+        $(".menu-image-link").fadeIn(300);
+        $(".drop-right").fadeIn(300);
       });
 
       gen_box.css({
