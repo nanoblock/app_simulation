@@ -79,7 +79,6 @@
     this.on('success', function(file, json) {
       var id = json.id
 
-      // $(file.previewTemplate).find('.dz-remove')
       $(file.previewTemplate).find('.dz-remove').on('click', function(event) {
         $.ajax({
           type: 'DELETE',
@@ -90,19 +89,7 @@
         });
       });
 
-      // alert($(file.previewTemplate).find('.overlay'));
         $(file.previewTemplate).find('.overlay').on('click', function(event) {
-
-          // $.ajax({
-          //   type: 'POST',
-          //   url: '/page/link',
-          //   data: { 
-          //     'image_id': id, 
-          //   },
-          //   success: function(res) {
-          //     location.href = "<= page_link_path(id) %>";
-          //   }
-          // });
           window.location.href = "/page/link/"+id;
         });
 
@@ -111,8 +98,4 @@
   },
 
 });
-
-  // $('.container').bind('display', function(e) {
-
-  // });
 </script>

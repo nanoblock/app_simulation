@@ -11,13 +11,6 @@
       <% @images.each do |images| %>
         <div class="text-wrap"><div class="text" id="<%= images.id %>"><%= images.photo_file_name %></div></div>
       <% end %>
-        <div class="text-wrap"><div class="text">Link 2</div></div>
-        <div class="text-wrap"><div class="text">Link 3</div></div>
-        <div class="text-wrap"><div class="text">Link 4</div></div>
-        <div class="text-wrap"><div class="text">Link 5</div></div>
-        <div class="text-wrap"><div class="text">Link 6</div></div>
-        <div class="text-wrap"><div class="text">Link 7</div></div>
-        <div class="text-wrap"><div class="text">Link 8</div></div>
       </div>
   </div>
   <div class="check">
@@ -90,7 +83,9 @@
       $('.clicked').each(function(index, value) {
         $(this).remove();
         $(".menu-image-link").fadeOut(300);
+        $(".drop-title").text("선택하기");
         $(".drop-right").fadeOut(300);
+
       });
     }
   });
@@ -103,6 +98,11 @@
   $('.close').on('click', function(e) {
     $(".menu-image-link").fadeOut(300);
     $(".drop-right").fadeOut(300);
+    $('.gen-box-tracker').attr('id', '');
+    $(".link-images").each(function(index, value) {
+      $(".gen-box-tracker").removeClass('.gen-box-tracker');
+    });
+    $(".drop-title").text("선택하기");
   });
 
   $(".top-menu").children().on("click", function(e) {
@@ -121,10 +121,6 @@
     $(".menu-image-link").fadeOut(300);
   });
 
-  $(".check").on('click', function(e) {
-    $(".menu-image-link").fadeOut(300);
-  })
-
   $(".link").children().on("click", function(e) {
     var children = $(this);
     select_image_id = children.attr('id');
@@ -132,6 +128,7 @@
     $(".gen-box-tracker").removeClass('gen-box-tracker');
     $(".menu-image-link").fadeOut(300);
     $(".drop-right").fadeOut(300);
+    $(".drop-title").text("선택하기");
   });
 
   $(".dropdown").on('click', function(e) {
@@ -146,9 +143,26 @@
     children = $(this).children();
     select_image_id = children.attr('id');
     $('.gen-box-tracker').attr('id', select_image_id);
+    $(".link-images").each(function(index, value) {
+      if ($(value).attr('id') == $(".gen-box-tracker").attr('id') && isNullOrUndefined($(".gen-box-tracker").attr('id')) != true) {
+        $(value).css('border', 'solid 5px yellow');
+        selectText = $(value).parent().find(".text").text();
+        $(".text-wrap").find(".text").each(function(dropIndex, dropValue) {
+          if($(dropValue).text() == selectText) {
+            $(".drop-title").text(selectText);
+          }
+        });
+      } else {
+        $(value).css('border', 'solid 5px transparent');
+      }
+    });
+  });
+
+  $(".check").on('click', function(e) {
     $(".gen-box-tracker").removeClass('gen-box-tracker');
-    // $(".menu-image-link").fadeOut(300);
-    // $(".drop-right").fadeOut(300);
+    $(".menu-image-link").fadeOut(300);
+    $(".drop-right").fadeOut(300);
+    $(".drop-title").text("선택하기");
   });
 
   var mobileView = $('.mobile-view');
@@ -168,6 +182,7 @@
       y = e.pageY;
       $(".hover").css("cursor", "move");
       $(".drop-right").fadeOut(300);
+      $(".drop-title").text("선택하기");
       $(".menu-image-link").fadeOut(300);
     },
     resizestart: function(e) {
@@ -175,12 +190,6 @@
     },
     dragstop: function(e) {
       $(".hover").css("cursor", "pointer");
-      // $(".drop-right").css({
-      //       'top'   : gen_box.offset().top,
-      //       'left'  : gen_box_right
-      //     });
-      // $(".drop-right").fadeIn(300);
-
     }
   });
   var selected_value;
@@ -268,6 +277,13 @@
             // $(".menu-image-link").fadeOut(300);
             // $(".drop-right").fadeOut(300);
             $(value).removeClass('clicked');
+            e.stopPropagation();
+          }
+        });
+
+        $(".gen-box-tracker").each(function(index, value) {
+          if( clickedGenBox.attr('class') == $(value).attr('class') ){
+            $(value).removeClass('gen-box-tracker');
             e.stopPropagation();
           }
         });

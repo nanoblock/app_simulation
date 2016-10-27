@@ -5,29 +5,14 @@
 $thumbnail_width: 200px;
 $thumbnail_height: 300px;
 
-.image-view {
+.image-view,
+.image-index-view {
   width: 100%;
   height: 100%;
+  .container {
+    width: 100%;
+  }
 }
-
-.image-view .container {
-  width: 100%;
-  /*height: 100%;*/
-}
-
-#preview {
-  
-}
-
-
-/*################dropzone###################*/
-/*.image-view .container {
-  width: 100%;
-  height: 100vh;
-  background-color: lightslategray;
-  position: relative;
-  display: none;
-}*/
 
 .image-view .vertical-center {
   position: relative;
@@ -67,10 +52,11 @@ $thumbnail_height: 300px;
 .dz-preview,
 .dz-file-preview {
   float: left;
-  position: absolute;
+  position: relative;
   border-radius: 5px;
+  margin-left: 20px;
+  margin-top: 20px;
   overflow: hidden;
-  background-color: gray;
   min-width: $thumbnail_width;
   min-height: $thumbnail_height;
   width: $thumbnail_width;
@@ -155,18 +141,14 @@ $thumbnail_height: 300px;
   margin-right: 15px;
   color: white;
   z-index: 3;
-  font-size: 5em;
+  font-size: 1em;
   opacity: 0;
   -webkit-transition-duration: 0.3s;
   transition-duration: 0.3s;
   /*transition: transform .4s ease 0s;*/
 }
 
-/*.dz-filename , .dz-size, .dz-my-separator , .dz-remove {
-    font: 11px "Lucida Grande", Lucida, Verdana, sans-serif;
-}*/
 
 .dz-my-separator, .dz-size , .dz-error-message {
   float: left;
 }
-/*###################################*/

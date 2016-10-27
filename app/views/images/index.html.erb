@@ -1,12 +1,101 @@
-<div class="image-view">
+<div class="image-index-view">
   <div class="container">
   
-  <% @images.each do |image| %>
-  <div style="margin: 20px; float: left;">
-    <%= link_to image_tag(image.photo(:thumb), id: "#{image.id}", style: "margin: auto;", size: "200x300"), link_page_path(image.id) %>
-    <div style="text-align:center;"><%= image.photo_file_name%></div>
+  <%= form_tag images_path, class: 'dropzone', id: 'upload-dropzone', remote: true, authenticity_token: true do %>
+    <%= image_tag '/assets/preview/image_upload.svg', class: "dz-preview", id: "upload",size: "200x300", style: "object-fit: contain;" %>
+    <% @images.each do |image| %>
+      <div class="dz-preview dz-file-preview">
+      <div class="dz-remove image-remove">DELETE</div>
+      <div class="overlay"><span>Image Link</span></div>
+      <%= image_tag image.photo(:thumb), class: "dz-thumbnail", id: "#{image.id}", style: "margin: auto;" %>
+      <div style="position: relative; text-align:center; font-size: 1em;z-index:6;"><%= image.photo_file_name %></div>
+      </div>
+
+    <% end %>
+    <div class="fallback">
+      <%= file_field_tag('picture[image]') %>
     </div>
   <% end %>
-  
+
+  <div id='preview'></div>
+
   </div>
 </div>
+
+<script type="text/javascript">
+  // (function() {
+  //     var ev = new $.Event('display'),
+  //         orig = $.fn.css;
+  //     $.fn.css = function() {
+  //         orig.apply(this, arguments);
+  //         $(this).trigger(ev);
+  //     }
+  // })();
+
+  $('.dz-remove').on('click', function(e) {
+    clickedValue = $(this);
+    parent = $(this).parent();
+    id = parent.find('.dz-thumbnail').attr('id');
+
+    $.ajax({
+      type: 'DELETE',
+      url: '/images/' + id,
+      success: function(res){
+        parent.fadeOut(300);
+      }
+    });
+  });
+
+  Dropzone.autoDiscover = false;
+
+  var headlineDropzone = new Dropzone("#upload-dropzone", {
+
+  paramName: 'image[photo]',
+  maxFilesize: 5, // in MB
+  maxFiles: 100,
+  addRemoveLinks: false,
+  parallelUploads: 100,
+  clickable: '#upload',
+  previewContainer: '#preview',
+  previewTemplate: "\<div class=\"dz-preview dz-file-preview\">\n\
+  <div class=\"dz-remove\">DELETE</div>\n\
+  <div class=\"overlay\"><span>Image Link</span></div>\n\
+  <img class=\"dz-thumbnail\" data-dz-thumbnail>\n\
+    </div>\n\
+    ",
+  acceptedFiles:'.jpg, .png, .jpeg, .gif',
+
+  init: function(){
+
+    this.on('dragenter', function(event) {
+      $('#upload-dropzone').css('border-color', 'rgba(245, 133, 31, 0.6)');
+    });
+
+    this.on('dragleave', function(event) {
+      $('#upload-dropzone').css('border-color', 'transparent');
+    });
+
+    this.on('success', function(file, json) {
+      var id = json.id
+
+      $(file.previewTemplate).find('.dz-remove').on('click', function(event) {
+        $.ajax({
+          type: 'DELETE',
+          url: '/images/' + id,
+          success: function(res){
+            $(file.previewTemplate).fadeOut(300);
+          },
+          error: function(data) {
+            alert(data);
+          }
+        });
+      });
+
+      $(file.previewTemplate).find('.overlay').on('click', function(event) {
+        window.location.href = "/page/link/"+id;
+      });
+    });
+  },
+
+});
+</script>
