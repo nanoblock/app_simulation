@@ -1,7 +1,6 @@
 // Place all the styles related to the page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import "bootstrap-sprockets", "bootstrap";
 
 $bodyColor: #FFFFFF;
 $imageLinkColor: #0A2646;
@@ -101,7 +100,87 @@ $menuImageLinkHeight: 180px;
 
 } /*(min-width: 1441px) and (max-width: 1600px)*/
 
-@media screen and (min-width: 1601px) {}
+@media screen and (min-width: 1601px) {
+    .preview-view .preview-name {
+    margin-top:44px;
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: #407abd;
+  }
+
+  .preview-view .preview-line {
+    width: 210px;
+    object-fit: contain;
+    border: solid 2px #407abd;
+    margin: auto;
+    margin-bottom: 56px;
+  }
+  .page-view .mobile-wrap,
+  .preview-view .mobile-wrap {
+    /*width: 360px;*/
+    height: 25%;
+    margin-top: 52px;
+    height: auto;
+  }
+
+  .page-view .top-menu,
+  .preview-view .top-menu {
+      .preview-mode img, .top-menu-dropdown-preview,
+      .link-mode img, .top-menu-dropdown-link,
+      .save-mode img, .top-menu-dropdown-save {
+        width: 120px;
+      }
+  }
+
+  .page-view .mobile-view {
+    top: 105px;
+    width: 312.9px;
+    height: 556.1px;
+    margin-top: 89.6px;
+  }
+
+  .preview-view .mobile-view img {
+    top: 105px;
+    width: 312.9px;
+    height: 556.1px;
+    margin-top: 89.6px;
+    /*width: 240.4px;
+    height: 498px;*/
+  }
+
+  .page-view .menu-image-link {
+    height: 300px;
+    .text {
+      margin-left: 5px;
+      width: 120px;
+    }
+  }
+
+  .menu-image-link .elements .title {
+    font-size: 1.250em;
+    padding-left: 41px;
+    padding-top: 18px;
+  } 
+
+  .image-group .image-placeholer {
+    /*margin-top: 20px;*/
+    margin-left: 41px;
+    width: 120px;
+    height: 180px;
+    img {
+      margin-top: 20px;
+    }
+    .text {
+      /*margin-top: 23px;*/
+      font-size: 1.125em;
+      color: $imageLinkFontColor;
+    }
+  }
+
+}
 
 .page-view, .preview-view {
   text-align: center;
