@@ -31,6 +31,10 @@
   //         $(this).trigger(ev);
   //     }
   // })();
+  $(".overlay").on('click', function(event) {
+    id = $(this).parent().find('.dz-thumbnail').attr('id');
+    window.location.href = "/page/link/"+id;
+  });
 
   $('.dz-remove').on('click', function(e) {
     clickedValue = $(this);
