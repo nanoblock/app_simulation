@@ -73,9 +73,9 @@ timestamps  :updated_at
 
 ## Photo Config
 ### Image 사이즈
-original  -> 400x650
-medium    -> 300x300
-thumb     -> 120x180
+* original  -> 400x650
+* medium    -> 300x300
+* thumb     -> 120x180
 
 ### 지원 가능 이미지 파일 Extension
 * image/jpg
