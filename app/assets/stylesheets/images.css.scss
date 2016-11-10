@@ -1,6 +1,7 @@
 // Place all the styles related to the images controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
 
 $thumbnail_width: 200px;
 $thumbnail_height: 300px;
@@ -64,7 +65,7 @@ $thumbnail_height: 300px;
 }
 
 .dz-preview:hover .overlay,
-.dz-preview:hover .dz-remove{
+.dz-preview:hover .dz-remove {
   opacity: 1;
   transform: scale(1);
   transform: translateX(0);

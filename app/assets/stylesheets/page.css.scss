@@ -1,6 +1,7 @@
 // Place all the styles related to the page controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "bootstrap";
 
 $bodyColor: #FFFFFF;
 $imageLinkColor: #0A2646;
@@ -13,12 +14,77 @@ $menuImageLinkHeight: 180px;
 
 @media screen and (min-width: 0px) and (max-width: 320px) { }     /*(min-width: 0px) and (max-width: 320px)*/
 @media screen and (min-width: 321px) and (max-width: 480px) { }   /*(min-width: 321px) and (max-width: 480px)*/
-@media screen and (min-width: 481px) and (max-width: 640px) { }   /*(min-width: 481px) and (max-width: 640px)*/
-@media screen and (min-width: 641px) and (max-width: 800px) { }   /*(min-width: 641px) and (max-width: 800px)*/
-@media screen and (min-width: 801px) and (max-width: 1024px) { }  /*(min-width: 801px) and (max-width: 1024px)*/
-@media screen and (min-width: 1025px) and (max-width: 1280px) { } /*(min-width: 1025px) and (max-width: 1280px)*/
-@media screen and (min-width: 1281px) and (max-width: 1440px) { } /*(min-width: 1281px) and (max-width: 1440px)*/
-@media screen and (min-width: 1441px) and (max-width: 1600px) { 
+@media screen and (min-width: 1024px) {
+  .preview-view .preview-name {
+    margin-top:44px;
+    margin-bottom: 12px;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    text-align: center;
+    color: #407abd;
+  }
+
+  .preview-view .preview-line {
+    width: 210px;
+    object-fit: contain;
+    border: solid 2px #407abd;
+    margin: auto;
+    margin-bottom: 56px;
+  }
+  .page-view .mobile-wrap,
+  .preview-view .mobile-wrap {
+    width: 330px;
+    margin-top: 52px;
+  }
+
+  .page-view .top-menu,
+  .preview-view .top-menu {
+      .preview-mode img, .top-menu-dropdown-preview,
+      .link-mode img, .top-menu-dropdown-link,
+      .save-mode img, .top-menu-dropdown-save {
+        width: 110px;
+      }
+  }
+
+  .page-view .mobile-view,
+  .preview-view .mobile-view {
+    top: 94px;
+    width: 287px;
+    height: 510px;
+    margin-top: 89.6px;
+  }
+
+  .page-view .menu-image-link {
+    height: 300px;
+    .text {
+      margin-left: 5px;
+      width: 120px;
+    }
+  }
+
+  .menu-image-link .elements .title {
+    font-size: 1.250em;
+    padding-left: 41px;
+    padding-top: 18px;
+  } 
+
+  .image-group .image-placeholer {
+    /*margin-top: 20px;*/
+    margin-left: 41px;
+    width: 120px;
+    height: 180px;
+    img {
+      margin-top: 20px;
+    }
+    .text {
+      /*margin-top: 23px;*/
+      font-size: 1.125em;
+      color: $imageLinkFontColor;
+    }
+  }
+} /*(min-width: 1025px) and (max-width: 1280px)*/
+@media screen and (min-width: 1440px) { 
   .preview-view .preview-name {
     margin-top:44px;
     margin-bottom: 12px;
@@ -60,7 +126,7 @@ $menuImageLinkHeight: 180px;
     margin-top: 89.6px;
   }
 
-  .preview-view .mobile-view img {
+  .preview-view .mobile-view {
     top: 105px;
     width: 312.9px;
     height: 556.1px;
@@ -142,7 +208,7 @@ $menuImageLinkHeight: 180px;
     margin-top: 89.6px;
   }
 
-  .preview-view .mobile-view img {
+  .preview-view .mobile-view {
     top: 105px;
     width: 312.9px;
     height: 556.1px;
@@ -253,17 +319,13 @@ $menuImageLinkHeight: 180px;
   z-index: 2;
 }
 
-.preview-view .mobile-view{
+.preview-view .mobile-view {
   position: absolute;
   left: 0; right: 0; 
   margin-left: auto; margin-right: auto;
   z-index: 2;
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  top: 105px;
-  width: 312.9px;
-  height: 556.1px;
-  margin-top: 89.6px;
   display: none;
 }
 
@@ -410,20 +472,6 @@ $menuImageLinkHeight: 180px;
   }
 }
 
-/*.slide-up .overlay{
-  background-color: #3dcbe8;
-  line-height: 200px;
-  color: #fff;
-  transform: translateY(100%);
-  -webkit-transition: transform 0.5s ease-out;
-  -o-transition: transform 0.5s ease-out;
-  transition: transform 0.5s ease-out;
-}
-
-.slide-up .box:hover .overlay{
-  transform: translateY(0);
-}*/
-
 .menu-image-link .elements {
   overflow-x: scroll;
   overflow-y: hidden;
@@ -454,34 +502,6 @@ $menuImageLinkHeight: 180px;
   }  
 }
 
-/*.menu-image-link .elements:hover {
-  overflow-x:visible;
-  -webkit-overflow-scrolling: touch;
-  -webkit-transition: all .9s;
-}*/
-
-
-/*.menu-image-link .elements .upload {
-  display: inline-block;
-  border: dashed 2px $imageLinkUploadBorderColor;
-  width: 120px;
-  height: 170px;
-}*/
-
-/*.menu-image-link .elements::-webkit-scrollbar {
-  height: 5px;
-}
- 
-.menu-image-link .elements::-webkit-scrollbar-track {
-  background-color: transparent;
-  border-radius: 2em;
-}
- 
-.menu-image-link .elements::-webkit-scrollbar-thumb {
-  border-radius: 2em;
-  background-color: gold;
-}*/
-
 .page-view .vertical-center {
   position: relative;
   top: 50%;
@@ -497,19 +517,6 @@ $menuImageLinkHeight: 180px;
   margin: auto;
 }
 
-/*.page-view .gen-box-tracker {
-  background-color: rgba(0, 0, 0, 0.8) !important;
-}*/
-
-/*.page-view .hover:hover {
-  background-color: $clickableBackgroundColor !important;
-}*/
-
-/*.ui-resizable{ -webkit-border-radius:10px;-moz-border-radius:10px;border-radius:10px; }*/
 .ui-selected { cursor: default;}
-
-/*.ui-resizable.ui-resizable-resizing,
-.ui-resizable.ui-draggable-dragging
-{ border:2px dashed #ffcc66 !important; }*/
 
 .selected { background:#ffffff; }
