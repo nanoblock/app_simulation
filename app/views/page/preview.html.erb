@@ -57,7 +57,7 @@
       }
     });
     if(clazz == "link-mode") {
-      location.href = "/page/link/"+ id;
+      window.location.href = "/project/"+<%= params[:project_id] %>+"/link/"+id;
     } else if(clazz == "save-mode") {
       location.href = "/page/link/"+ $(".mobile-view").attr('id');
     }

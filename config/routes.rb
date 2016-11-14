@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
 
-  get  'page/preview/:id',to: 'page#preview', as: 'preview_page'
-  get 'page/preview', to: 'page#preview'
-  get  'page/link/:id', to: 'page#link', as: 'link_page'
-  # get   'page/link', on: :member
-  # match 'page/link/:id'
+  get  'preview/projects/:project_id/images/:id',to: 'page#preview', as: 'preview_page'
+  get 'preview', to: 'page#preview'
+  get  'project/:project_id/link/:id', to: 'page#link', as: 'link_page'
+
+  resources :projects do
 
   resources :images do
     resources :clickables, only: [:create]do
@@ -14,5 +14,7 @@ Rails.application.routes.draw do
     end #clickables
   end
 
-  root to: 'images#new'
+end
+
+  root to: 'projects#new'
 end

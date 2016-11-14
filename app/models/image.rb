@@ -1,4 +1,6 @@
 class Image < ActiveRecord::Base
+  belongs_to :projects
+  
   has_many :ocrs, dependent: :destroy
   has_many :clickables, dependent: :destroy
 

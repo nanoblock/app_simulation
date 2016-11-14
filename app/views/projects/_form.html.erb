@@ -1,0 +1,17 @@
+<%= form_for @project do |f| %>
+  <div class="title">
+    <%= f.label :name, 'Title' %>
+    
+  </div>
+  <%= f.text_field :name, style: 'width: 300px; height: 30px; font-size: 18px; border: none;' %>
+  
+  
+
+  <div class="desc">
+    <%= f.label :desc, 'Description', style: 'margin-top: 20px;' %>
+    
+  </div>
+  <%= f.text_field :desc, style: 'width: 300px; height: 100px; font-size: 18px; border: none;' %>
+  <%= f.submit '확 인', class: 'create-submit', style: 'font-size: 18px;' %>
+  
+<% end %>

@@ -1,0 +1,158 @@
+@import "bootstrap";
+
+@media screen and (min-width: 320px) {  
+}
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 1024px) {
+  .project-image {
+    width: 128px;
+    height: 280px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .project-image {
+    width: 138px;
+    height: 290px;
+  }
+}
+
+.project-view {
+  .container {
+    width: 80%;
+  }
+
+  .create-area {
+    width: 100%;
+    height: 300px;
+    background-color: #407abd;
+    margin-top: 60px;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .5);
+
+    h1 {
+      position: absolute;
+      padding-top: 80px;
+      margin-left: 150px;
+      text-align: center;
+      font-size: 40px;
+      color: white;
+      /*color:#f5851f;*/
+    }
+    p {
+      position: absolute;
+      margin-top: 150px;
+      text-align: center;
+      margin-left: 150px;
+      font-size: 24px;
+      color: white;
+      /*color:#f5851f;*/
+    }
+
+    .create-form {
+      position: absolute;
+      margin-left: 660px;
+      width: 70%;
+      margin-top: 20px;
+      .title,
+      .desc {
+        display: block;
+        label {
+          width: 150px;
+          font-size: 22px;
+          color: white;
+          /*border-bottom: 1px solid gray;*/
+        }
+        /*.title-field {
+          background-color: black;
+          width: 300px;
+          height: 50px;
+        }*/
+      }
+      .create-submit {
+        display: block;
+        margin-top: 10px;
+        width: 300px;
+        background-color: #FFAC48;
+        color: white;
+        border: none;
+      }
+    }
+  }
+
+  .user-name {
+    margin-top: 30px;
+    width: 164px;
+    height: 29px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    color: #407abd;
+  }
+
+  .user-name-line {
+    /*background-color: #d8d8d8;*/
+    background-color: rgba(255, 172, 72, .5);
+    margin-top: 10px;
+    margin-left: 40px;
+    width: 400px;
+    height: 3px;
+    color: transparent;
+  }
+
+  .project-area {
+    float: left;
+    margin-top: 30px;
+    margin-left: 30px;
+    width: 37%;
+    height: 390px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 14px 7px rgba(121, 121, 121, 0.05);
+    border: solid 1px #e4e4e4;
+    .project-title {
+      padding-top: 10px;
+      width: 80%;
+      margin: auto;
+      color: #407abd;
+      font-size: 23px;
+      font-weight: bold;
+      white-space: nowrap;
+      word-break:break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .project-desc {
+      margin-top: 10px;
+      width: 80%;
+      margin: auto;
+      color: rgba(255, 172, 72, 1);
+      white-space: nowrap;
+      word-break:break-word;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      font-size: 14px;
+    }
+    .project-image-area {
+      width: 80%;
+      margin: auto;
+      margin-top: 20px;
+      text-align: center;
+      .project-no-image {
+        margin-top: 40px;
+      }
+      .left {
+        float: left;
+      }
+      .right {
+        float: right;
+      }
+      .project-image {
+        margin-right: 20px;
+      }
+    }
+    
+  }
+}

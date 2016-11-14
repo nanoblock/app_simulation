@@ -27,12 +27,12 @@
   var headlineDropzone = new Dropzone("#upload-dropzone", {
 
   paramName: 'image[photo]',
-  maxFilesize: 5, // in MB
+  // maxFilesize: 5, // in MB
   maxFiles: 100,
   addRemoveLinks: false,
   parallelUploads: 100,
-  // thumbnailWidth: 450,
-  // thumbnailHeight: 500,
+  thumbnailWidth: 350,
+  thumbnailHeight: 500,
   clickable: true,
   // createImageThumbnails: false,
   previewContainer: '#preview',
@@ -42,22 +42,6 @@
   <img class=\"dz-thumbnail\" data-dz-thumbnail>\n\
     </div>\n\
     ",
-    // \<div class=\"thumbnail-name dz-filename\"><span data-dz-name></span></div>\n\
-// <img src=\"http://image.flaticon.com/icons/svg/61/61848.svg\" width=\"72\" height=\"72\">
-
-    // "\<div class=\"dz-preview dz-file-preview\">\n\
-    //   <div class=\"dz-details\">\n\
-    //     <div class=\"clearfix\">\n\
-    //       <img class=\"dz-thumbnail\" data-dz-thumbnail>\n\
-    //       <div class=\"dz-success-mark\" style=\"display:none;\"><i class=\"fa fa-2x fa-check-circle\"></i></div>\n\
-    //     </div>\n\
-    //     <div class=\"dz-progress\"><span class=\"dz-upload\" data-dz-uploadprogress></span></div>\n\
-    //     <div>\n\
-    //       <div class=\"dz-my-separator\"> hello </div>\n\
-    //     </div>\n\
-    //   </div>\n\
-    // </div>\n\
-    // "
   acceptedFiles:'.jpg, .png, .jpeg, .gif', // type of files
 
   init: function(){

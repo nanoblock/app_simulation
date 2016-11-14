@@ -1,8 +1,9 @@
 <div class="image-index-view">
+
   <div class="container">
-  
-  <%= form_tag images_path, class: 'dropzone', id: 'upload-dropzone', remote: true, authenticity_token: true do %>
-    <%= image_tag '/assets/preview/image_upload.svg', class: "dz-preview", id: "upload",size: "200x300", style: "object-fit: contain;" %>
+  <%= link_to '프로젝트 보기', root_path, class: 'link-home'  %>
+<%= form_tag "/projects/"+params[:project_id]+"/images", method: 'post', class: 'dropzone', id: 'upload-dropzone', remote: true, authenticity_token: true do %>
+    <%= image_tag asset_path('preview/image_upload.svg'), class: 'dz-preview', id: "upload",size: "200x300", style: "object-fit: contain;" %>
     <% @images.each do |image| %>
       <div class="dz-preview dz-file-preview">
       <div class="dz-remove image-remove">DELETE</div>
@@ -20,6 +21,7 @@
   <div id='preview'></div>
 
   </div>
+
 </div>
 
 <script type="text/javascript">
@@ -33,7 +35,7 @@
   // })();
   $(".overlay").on('click', function(event) {
     id = $(this).parent().find('.dz-thumbnail').attr('id');
-    window.location.href = "/page/link/"+id;
+    window.location.href = "/project/"+<%= params[:project_id] %>+"/link/"+id;
   });
 
   $('.dz-remove').on('click', function(e) {
@@ -43,7 +45,7 @@
 
     $.ajax({
       type: 'DELETE',
-      url: '/images/' + id,
+      url: '/projects/'+<%= params[:project_id] %>+'/images/' + id,      
       success: function(res){
         parent.fadeOut(300);
       }
@@ -55,9 +57,10 @@
   var headlineDropzone = new Dropzone("#upload-dropzone", {
 
   paramName: 'image[photo]',
-  maxFilesize: 5, // in MB
   maxFiles: 100,
   addRemoveLinks: false,
+  thumbnailWidth: 350,
+  thumbnailHeight: 500,
   parallelUploads: 100,
   clickable: '#upload',
   previewContainer: '#preview',
@@ -85,7 +88,7 @@
       $(file.previewTemplate).find('.dz-remove').on('click', function(event) {
         $.ajax({
           type: 'DELETE',
-          url: '/images/' + id,
+          url: '/projects/'+<%= params[:project_id] %>+'/images/' + id,
           success: function(res){
             $(file.previewTemplate).fadeOut(300);
           },
@@ -96,7 +99,7 @@
       });
 
       $(file.previewTemplate).find('.overlay').on('click', function(event) {
-        window.location.href = "/page/link/"+id;
+        window.location.href = "/project/"+<%= params[:project_id] %>+"/link/"+id;
       });
     });
   },

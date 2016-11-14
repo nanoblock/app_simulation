@@ -1,0 +1,63 @@
+<div class="project-view">
+  <div class="container">
+
+    <div class="create-area">
+      <div class="create-area-container">
+      <h1>SHOW ME THE APPS</h1>
+      <p>프로젝트를 생성하세요</p>
+      
+      <div class="create-form">
+      
+        <%= render 'form' %>
+      </div>
+      </div>
+    </div>
+
+    <div class="user-name">
+      Project
+    </div>
+    <div class="user-name-line">line</div>
+
+    <% unless @projects.empty? %>
+      <% @projects.each do |project| %>
+      <div class="project-area" id="<%= project.id %>">
+        <div class="close" id="<%= project.id %>" style="opacity:.5;filter: alpha(opacity=50); margin-top: 20px; margin-right:15px;">
+        <%= link_to image_tag(asset_path('preview/page_link_drop_right_close.svg'), size: '25x25', class: 'close-img'), project_path(project.id), :method => :delete %>
+        </div>
+        <div class="project-title">
+          <%= project.name %>
+        </div>
+        
+        <div class="project-desc">
+          <%= project.desc %>
+        </div>
+        <div class="project-image-area">
+
+          <% if project.images.empty? %>
+            <div class="project-no-image"><%= link_to image_tag(asset_path('preview/image_upload.svg').to_s), project_images_path(project.id) %></div>
+          <% else %>
+            <div class="left">
+              <%= image_tag asset_path(project.images.all.first.photo.url.to_s), class: 'project-image' %>
+            </div>
+            <div class="right">
+              <% if project.images.all.size >= 2 %>
+              <%= image_tag asset_path(project.images.all.second.photo.url.to_s), class: 'project-image' %>  
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="col-sm-1"></div>
+      <% end %>
+    <% end %>
+    
+  </div>
+</div>
+
+<script>
+  $('.project-area').on('click', function(e) {
+    var id = $(this).attr('id');
+    window.location.href = '/projects/'+id+'/images'
+  });
+</script>

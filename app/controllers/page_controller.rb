@@ -1,6 +1,6 @@
 class PageController < ApplicationController
   def preview
-    @images = Image.all
+    @images = Project.find(params[:project_id]).images.all
     unless (params[:id]).nil?
       @image = Image.find(params[:id])
     else
@@ -9,7 +9,7 @@ class PageController < ApplicationController
   end
 
   def link
-    @images = Image.all
+    @images = Project.find(params[:project_id]).images.all
     unless (params[:id]).nil?
       @image = Image.find(params[:id])
     else

@@ -111,9 +111,9 @@
     if(clazz == "save-mode") {
       gen_boxs = $('*[class^="gen_box_"]');
       saveClickableArea();
-      location.href = "<%= images_path %>";
+      location.href = "/projects/"+<%= params[:project_id]%>+ "/images";
     } else if(clazz == "preview-mode") {
-      location.href = "/page/preview/" + id;
+      location.href = "/preview/projects/"+<%= params[:project_id] %> +"/images/"+<%= params[:id] %>;
     }
   });
 
@@ -366,7 +366,7 @@
     function destroyClickableArea() {
       $.ajax({
         type: "POST",
-        url: "<%= destroy_all_image_clickables_path(@image_id) %>",
+        url: "<%= destroy_all_project_image_clickables_path(params[:project_id], @image_id) %>",
         success: function(data) {
 
         },
@@ -381,7 +381,7 @@
       gen_boxs.each(function(index, value) {
         $.ajax({
           type: "POST",
-          url: "<%= image_clickables_path(@image_id) %>",
+          url: "<%= project_image_clickables_path(params[:project_id], @image_id) %>",
           data: { clickable: { 
             target_image_id: $(this).attr('id'),
             top: (parseInt($(this).css('top'))),
